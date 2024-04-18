@@ -5,10 +5,8 @@ import os
 import openai
 import pandas as pd
 import requests
-# importing necessary functions from dotenv library
 from dotenv import load_dotenv
 from tonic_validate import Benchmark
-from tonic_validate import ValidateScorer
 
 # loading variables from .env file
 load_dotenv()
@@ -22,9 +20,30 @@ SERVING_ENDPOINT = "api.vectara.io"
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-
 url = "https://api.vectara.io/v1/query"
-url_1 = "http://127.0.0.1:8000/query/?company=Gitlab&prompt=Can%20I%20interview%20for%20multiple%20roles%20at%20the%20same%20time%3F"
+# url_1 = "http://127.0.0.1:8000/query/?company=Gitlab&prompt=Can%20I%20interview%20for%20multiple%20roles%20at%20the%20same%20time%3F"
+
+
+def _get_rag_best_response(response):
+    best_response = response[0]
+    for res in response:
+        if res['score'] > best_response['score']:
+            best_response = res
+    return best_response
+
+
+def _get_rag_response(top_response):
+    # Create the response dictionary in the desired format
+    response = {
+        "llm_answer": top_response['text'],  # Use 'text' for the answer
+        "llm_context_list": [top_response['metadata'][i]['value'] for i in range(len(top_response['metadata'])) if
+                             top_response['metadata'][i]['name'] == 'title'],  # Extract title from metadata
+        "score": top_response['score'],
+        "resultOffset": top_response['resultOffset'],
+        "resultLength": top_response['resultLength'],
+    }
+
+    return response
 
 def get_response(prompt):
     payload = {
@@ -33,7 +52,7 @@ def get_response(prompt):
                 "query": prompt,
                 "queryContext": "",
                 "start": 0,
-                "numResults": 3,
+                "numResults": 5,
                 "contextConfig": {
                     "charsBefore": 0,
                     "charsAfter": 0,
@@ -74,7 +93,6 @@ def get_response(prompt):
 
     response = requests.post(url, headers=headers, json=payload)
 
-
     if response.status_code != 200:
         logging.error("Query failed with code %d, reason %s, text %s",
                       response.status_code,
@@ -82,85 +100,28 @@ def get_response(prompt):
                       response.text)
         return response
 
+    # responses = response.json()['responseSet'][0]['response']
+    # resutls = []
+    # for res in responses:
+    #     resutls.append(_get_rag_response(res))
+
     # refactoring the code to handle the response
     # Extract the first response from the responseSet
     # TODO: Handle multiple responses
-    first_response = response.json()['responseSet'][0]['response'][0]
-    result = _get_rag_response(first_response)
+    # first_response = response.json()['responseSet'][0]['response'][0]
+    # result = _get_rag_response(first_response)
+
+    # take the highest score response, the score is in the range of 0-1 and the higher indicate a grater propability
+    # of being factual, while lower score indicate a greater probability of hallucination
+    best_response = response.json()['responseSet'][0]['response'][0]
+    result = _get_rag_response(best_response)
 
     return result
 
 
-def _get_query_json(customer_id: int, corpus_id: int, query_value: str, num_results: int):
-    """Returns a query JSON."""
-    query = {
-        "query": [
-            {
-                "query": query_value,
-                "num_results": num_results,
-                "corpus_key": [{"customer_id": customer_id, "corpus_id": corpus_id}],
-            },
-        ],
-    }
-    return json.dumps(query)
-
-
-def _get_rag_response(top_response):
-
-    # Create the response dictionary in the desired format
-    response = {
-        "llm_answer": top_response['text'],  # Use 'text' for the answer
-        "llm_context_list": [top_response['metadata'][i]['value'] for i in range(len(top_response['metadata'])) if
-                             top_response['metadata'][i]['name'] == 'title'],  # Extract title from metadata
-        "score": top_response['score'],
-        "resultOffset": top_response['resultOffset'],
-        "resultLength": top_response['resultLength'],
-    }
-
-    return response
-
-
-def get_query(query: str, num_results: int = 1):
-    """Queries the data.
-
-    Args:
-        customer_id: Unique customer ID in vectara platform.
-        corpus_id: ID of the corpus to which data needs to be indexed.
-        query_address: Address of the querying server. e.g., api.vectara.io
-        api_key: A valid API key with query access on the corpus.
-
-    Returns:
-        (response, True) in case of success and returns (error, False) in case of failure.
-    """
-    post_headers = {
-        "customer-id": f"{CUSTOMER_ID}",
-        "x-api-key": VECTARA_API_KEY
-    }
-
-    response = requests.post(
-        f"https://{SERVING_ENDPOINT}/v1/query",
-        data=_get_query_json(CUSTOMER_ID, CORPUS_ID, query, num_results),
-        verify=True,
-        headers=post_headers)
-
-    if response.status_code != 200:
-        logging.error("Query failed with code %d, reason %s, text %s",
-                      response.status_code,
-                      response.reason,
-                      response.text)
-        return response
-
-    # refactoring the code to handle the response
-    # Extract the first response from the responseSet
-    # TODO: Handle multiple responses
-    first_response = response.json()['responseSet'][0]['response'][0]
-    response = _get_rag_response(first_response)
-
-    return response
 
 
 def make_scores_df(response_scores):
-
     scores_df = {
         "question": [],
         "reference_answer": [],
@@ -181,7 +142,6 @@ def make_scores_df(response_scores):
 
 
 if __name__ == "__main__":
-
     query = "How to get hired at gitlab?"
 
     # test_response = get_query(query)
@@ -201,7 +161,6 @@ if __name__ == "__main__":
     # Run the benchmark against the openai model and get the scores
 
     from tonic_validate import ValidateScorer
-    from tonic_validate.metrics import AnswerConsistencyMetric, AnswerSimilarityMetric
 
     # # scorer = ValidateScorer([AnswerSimilarityMetric(), AnswerConsistencyMetric()])
     # scorer = ValidateScorer([AnswerConsistencyMetric()])
@@ -219,6 +178,3 @@ if __name__ == "__main__":
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
     validate_api.upload_run(project_id="0e39990f-471b-4fe8-a89a-4f8fd3843e11", run=response_scores)
-
-
-
