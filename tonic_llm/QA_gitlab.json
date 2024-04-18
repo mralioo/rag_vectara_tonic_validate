@@ -1,0 +1,27 @@
+[
+  {
+    "question": "How can candidates request a reasonable accommodation for their interview process at GitLab?",
+    "answer": "Candidates can request a reasonable accommodation by reaching out to ces@gitlab.com. The Candidate Experience team along with Talent Acquisition leadership will collaborate with the candidate to define and accommodate their needs, which may include translation services, the use of additional services or assistive technologies, and assistance in setting up Closed Captioning for interviews.",
+    "reference_article": "GitLab Interview Process: Requesting Reasonable Accommodation",
+    "reference_text": "At GitLab we pride ourselves on ensuring that everyone can contribute. To make certain that everyone’s interview experience is a positive one, we encourage those who require a reasonable accommodation to successfully carry out the interview process, to reach out to ces@gitlab.com. The Candidate Experience team along with Talent Acquisition leadership will work with you to define and accommodate those needs. This could include but is not limited to the following: Translation Services, Use of additional services or assistive technologies, Assistance in setting up Closed Captioning for interviews."
+  },
+{
+  "question": "I've started the interview process at GitLab, but haven't heard back from anyone recently. What should I do?",
+  "answer": "Feel free to send an email to your Recruiter to get a status update on where you are in the interview process.",
+  "reference_article": "GitLab Interview Process: Follow-Up on Interview Status",
+  "reference_text": "I've started the interview process at GitLab, but haven't heard back from anyone recently. What do I do? Feel free to send an email to your Recruiter to get a status update on where you are in the interview process."
+},
+{
+  "question": "Can I have the hiring team's email addresses so I can send them a note?",
+  "answer": "If you'd like to send a note to the hiring team, please send it to your Recruiter and they will forward it on.",
+  "reference_article": "Contacting the Hiring Team at GitLab",
+  "reference_text": "Can I have the hiring team’s email addresses so I can send them a note? If you’d like to send a note to the hiring team, please send it to your Recruiter and they will forward it on."
+},
+{
+  "question": "Can I interview for multiple roles at the same time?",
+  "answer": "Yes, you can apply for multiple roles at the same time. However, keep in mind that you will need to complete a full interview process for each role you apply to. Additionally, the recruiting team will only process 3 of your applications at a time based on which ones you decide to prioritize.",
+  "reference_article": "Applying for Multiple Roles at GitLab",
+  "reference_text": "Can I interview for multiple roles at the same time? In the event that you are interested in more than one opening, there is no limit on the number of roles you can apply for but keep in mind the following: You will have to complete a full interview process for each role you apply to, so be mindful of the time commitment for each application you submit. Due to capacity, the recruiting team will only process 3 of your applications at a time based on which ones you decide to prioritize. Any other applications outside of the 3 will be processed after the prioritized roles’s interviews are completed. In the effort to be as transparent as possible and avoid sending multiple competing GitLab offers, there will be an added step to the process after your final interview where you will discuss with your recruiter which role you’re interested in before any official offer documents can be sent. If you already have interviewed with us, you can apply for a different role again, but please take note that there may be a cooldown period of 6 months or more if it’s a similar role, depending on the reason for not moving forward which is communicated by the recruiter."
+}
+
+]
