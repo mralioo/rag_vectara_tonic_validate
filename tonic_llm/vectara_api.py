@@ -126,13 +126,20 @@ if __name__ == "__main__":
     benchmark = Benchmark(questions=question_list, answers=answer_list)
 
     # Run the benchmark against the openai model and get the scores
-    scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
+
+    from tonic_validate import ValidateScorer
+    from tonic_validate.metrics import AnswerConsistencyMetric, AnswerSimilarityMetric
+
+    # scorer = ValidateScorer([AnswerSimilarityMetric(), AnswerConsistencyMetric()])
+    scorer = ValidateScorer([AnswerConsistencyMetric()])
+
+    # scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
     response_scores = scorer.score(benchmark, get_query, scoring_parallelism=2, callback_parallelism=2)
     print(response_scores)
 
     scores_df = make_scores_df(response_scores)
     # save dataframe to csv
-    scores_df.to_csv("scores_df.csv")
+    scores_df.to_csv("scores_df_v1.csv")
 
     # Upload the run to the Tonic Validate API
     from tonic_validate import ValidateApi
