@@ -149,14 +149,9 @@ if __name__ == "__main__":
     # Upload the run to the Tonic Validate API
     from tonic_validate import ValidateApi
 
-    validate_api = ValidateApi()
-    validate_api.upload_run("project-id", response_scores)
+    validate_api = ValidateApi("m4S9IVAHULukgy2lkKY8whoQqsxeMlrFwF-n7-pItLw")
+    validate_api.upload_run("0e39990f-471b-4fe8-a89a-4f8fd3843e11", )
 
     # BLEU (Bilingual Evaluation Understudy) is an algorithm for evaluating the quality of text which has been
     # machine-translated from one natural language to another.
 
-
-    # from tonic_validate import ValidateScorer, BLEUScorer
-    #
-    # # Initialize the BLEU scorer
-    # bleu_scorer = BLEUScorer()
