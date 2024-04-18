@@ -23,6 +23,74 @@ SERVING_ENDPOINT = "api.vectara.io"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
+url = "https://api.vectara.io/v1/query"
+url_1 = "http://127.0.0.1:8000/query/?company=Gitlab&prompt=Can%20I%20interview%20for%20multiple%20roles%20at%20the%20same%20time%3F"
+
+def get_response(prompt):
+    payload = {
+        "query": [
+            {
+                "query": prompt,
+                "queryContext": "",
+                "start": 0,
+                "numResults": 3,
+                "contextConfig": {
+                    "charsBefore": 0,
+                    "charsAfter": 0,
+                    "sentencesBefore": 2,
+                    "sentencesAfter": 2,
+                    "startTag": "%START_SNIPPET%",
+                    "endTag": "%END_SNIPPET%",
+                },
+                "corpusKey": [
+                    {
+                        "customerId": str(CUSTOMER_ID),
+                        "corpusId": CORPUS_ID,
+                        "semantics": 0,
+                        "lexicalInterpolationConfig": {"lambda": 1},
+                        "dim": [],
+                    }
+                ],
+                "summary": [
+                    {
+                        "debug": False,
+                        "chat": {"store": True, "conversationId": ""},
+                        "maxSummarizedResults": 3,
+                        "responseLang": "eng",
+                        "summarizerPromptName": "vectara-summary-ext-v1.2.0",
+                        "factualConsistencyScore": True,
+                    }
+                ],
+            }
+        ]
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "x-api-key": VECTARA_API_KEY,
+        "customer-id": str(CUSTOMER_ID),
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+
+
+    if response.status_code != 200:
+        logging.error("Query failed with code %d, reason %s, text %s",
+                      response.status_code,
+                      response.reason,
+                      response.text)
+        return response
+
+    # refactoring the code to handle the response
+    # Extract the first response from the responseSet
+    # TODO: Handle multiple responses
+    first_response = response.json()['responseSet'][0]['response'][0]
+    result = _get_rag_response(first_response)
+
+    return result
+
+
 def _get_query_json(customer_id: int, corpus_id: int, query_value: str, num_results: int):
     """Returns a query JSON."""
     query = {
@@ -92,12 +160,14 @@ def get_query(query: str, num_results: int = 1):
 
 
 def make_scores_df(response_scores):
+
     scores_df = {
         "question": [],
         "reference_answer": [],
         "llm_answer": [],
         "retrieved_context": []
     }
+
     for score_name in response_scores.overall_scores:
         scores_df[score_name] = []
     for data in response_scores.run_data:
@@ -113,7 +183,9 @@ def make_scores_df(response_scores):
 if __name__ == "__main__":
 
     query = "How to get hired at gitlab?"
-    test_response = get_query(query)
+
+    # test_response = get_query(query)
+    test_response_1 = get_response(query)
 
     # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
@@ -135,7 +207,7 @@ if __name__ == "__main__":
     # scorer = ValidateScorer([AnswerConsistencyMetric()])
 
     scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
-    response_scores = scorer.score(benchmark, get_query, scoring_parallelism=2, callback_parallelism=2)
+    response_scores = scorer.score(benchmark, get_response, scoring_parallelism=2, callback_parallelism=2)
     print(response_scores)
 
     scores_df = make_scores_df(response_scores)
@@ -148,7 +220,5 @@ if __name__ == "__main__":
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
     validate_api.upload_run(project_id="0e39990f-471b-4fe8-a89a-4f8fd3843e11", run=response_scores)
 
-    # BLEU (Bilingual Evaluation Understudy) is an algorithm for evaluating the quality of text which has been
-    # machine-translated from one natural language to another.
 
 
