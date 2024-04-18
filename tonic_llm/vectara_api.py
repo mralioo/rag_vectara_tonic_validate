@@ -17,7 +17,7 @@ TONIC_VALIDATE_API_KEY = os.getenv("TONIC_VALIDATE_API_KEY")
 
 VECTARA_API_KEY = os.getenv("VECTARA_API_KEY")
 CUSTOMER_ID = int(os.getenv("CUSTOMER_ID"))
-CORPUS_ID = 8
+CORPUS_ID = 12
 SERVING_ENDPOINT = "api.vectara.io"
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -111,6 +111,7 @@ def make_scores_df(response_scores):
 
 
 if __name__ == "__main__":
+
     query = "How to get hired at gitlab?"
     test_response = get_query(query)
 
@@ -130,10 +131,10 @@ if __name__ == "__main__":
     from tonic_validate import ValidateScorer
     from tonic_validate.metrics import AnswerConsistencyMetric, AnswerSimilarityMetric
 
-    # scorer = ValidateScorer([AnswerSimilarityMetric(), AnswerConsistencyMetric()])
-    scorer = ValidateScorer([AnswerConsistencyMetric()])
+    # # scorer = ValidateScorer([AnswerSimilarityMetric(), AnswerConsistencyMetric()])
+    # scorer = ValidateScorer([AnswerConsistencyMetric()])
 
-    # scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
+    scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
     response_scores = scorer.score(benchmark, get_query, scoring_parallelism=2, callback_parallelism=2)
     print(response_scores)
 
