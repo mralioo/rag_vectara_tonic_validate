@@ -3,21 +3,23 @@ import logging
 import os
 
 import openai
+import pandas as pd
 import requests
 # importing necessary functions from dotenv library
 from dotenv import load_dotenv
 from tonic_validate import Benchmark
 from tonic_validate import ValidateScorer
-import pandas as pd
 
 # loading variables from .env file
 load_dotenv()
 
 TONIC_VALIDATE_API_KEY = os.getenv("TONIC_VALIDATE_API_KEY")
-API_KEY = os.getenv("API_KEY")
-CUSTOMER_ID = 43437896
-CORPUS_ID = 3
+
+VECTARA_API_KEY = os.getenv("VECTARA_API_KEY")
+CUSTOMER_ID = int(os.getenv("CUSTOMER_ID"))
+CORPUS_ID = 8
 SERVING_ENDPOINT = "api.vectara.io"
+
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -36,8 +38,6 @@ def _get_query_json(customer_id: int, corpus_id: int, query_value: str, num_resu
 
 
 def _get_rag_response(top_response):
-    # Access the top response from Vectrator's response
-    # top_response = response['responseSet'][0]['response'][0]
 
     # Create the response dictionary in the desired format
     response = {
@@ -66,7 +66,7 @@ def get_query(query: str, num_results: int = 1):
     """
     post_headers = {
         "customer-id": f"{CUSTOMER_ID}",
-        "x-api-key": API_KEY
+        "x-api-key": VECTARA_API_KEY
     }
 
     response = requests.post(
@@ -83,19 +83,10 @@ def get_query(query: str, num_results: int = 1):
         return response
 
     # refactoring the code to handle the response
+    # Extract the first response from the responseSet
+    # TODO: Handle multiple responses
     first_response = response.json()['responseSet'][0]['response'][0]
     response = _get_rag_response(first_response)
-
-    # message = response.json()
-    # if (message["status"] and
-    #         any(status["code"] != "OK" for status in message["status"])):
-    #     logging.error("Query failed with status: %s", message["status"])
-    #     return message["status"]
-    #
-    # for response_set in message["responseSet"]:
-    #     for status in response_set["status"]:
-    #         if status["code"] != "OK":
-    #             return status
 
     return response
 
@@ -120,27 +111,24 @@ def make_scores_df(response_scores):
 
 
 if __name__ == "__main__":
-    import openai
+    query = "How to get hired at gitlab?"
+    test_response = get_query(query)
 
-    query = "How to get hire at gitlab?"
-
-    response = get_query(query)
-
+    # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
-    with open('./data/QA_gitlab.json', 'r') as qa_file:
+    with open('./QA_gitlab.json', 'r') as qa_file:
         qa_pairs = json.load(qa_file)
 
     question_list = [qa_pair['question'] for qa_pair in qa_pairs]
     answer_list = [qa_pair['answer'] for qa_pair in qa_pairs]
 
+    # Create a benchmark object for Tonic Validate
     benchmark = Benchmark(questions=question_list, answers=answer_list)
 
+    # Run the benchmark against the openai model and get the scores
     scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
-    # scorer = ValidateScorer()
     response_scores = scorer.score(benchmark, get_query, scoring_parallelism=2, callback_parallelism=2)
     print(response_scores)
-
-
 
     scores_df = make_scores_df(response_scores)
     # save dataframe to csv
@@ -149,9 +137,10 @@ if __name__ == "__main__":
     # Upload the run to the Tonic Validate API
     from tonic_validate import ValidateApi
 
-    validate_api = ValidateApi("m4S9IVAHULukgy2lkKY8whoQqsxeMlrFwF-n7-pItLw")
-    validate_api.upload_run("0e39990f-471b-4fe8-a89a-4f8fd3843e11", )
+    validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
+    validate_api.upload_run(project_id="0e39990f-471b-4fe8-a89a-4f8fd3843e11", run=response_scores)
 
     # BLEU (Bilingual Evaluation Understudy) is an algorithm for evaluating the quality of text which has been
     # machine-translated from one natural language to another.
+
 
