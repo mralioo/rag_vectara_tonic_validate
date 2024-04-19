@@ -148,6 +148,7 @@ if __name__ == "__main__":
     # specify the version of the tested qa file
     version = "v3"
     qa_file = f"validation_qa_files/qa_gitlab_{version}.json"
+    save_to_csv = False
 
     # RAG parameters
     params = {
@@ -192,9 +193,12 @@ if __name__ == "__main__":
 
     # save dataframe to csv
 
-    results_file = f"scores_{version}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
-    scores_df = make_scores_df(response_scores)
-    scores_df.to_csv(f"./validation_results/{results_file}", index=False)
+    if save_to_csv:
+        results_file = f"scores_{version}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+        scores_df = make_scores_df(response_scores)
+        if not os.path.exists("./tonic_results"):
+            os.makedirs("./tonic_results")
+        scores_df.to_csv(f"./tonic_results/{results_file}", index=False)
 
     # Upload the run to the Tonic Validate API
 
