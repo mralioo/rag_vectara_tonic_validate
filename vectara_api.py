@@ -21,6 +21,8 @@ SERVING_ENDPOINT = "api.vectara.io"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 url = "https://api.vectara.io/v1/query"
+
+
 # url_1 = "http://127.0.0.1:8000/query/?company=Gitlab&prompt=Can%20I%20interview%20for%20multiple%20roles%20at%20the%20same%20time%3F"
 
 
@@ -44,6 +46,7 @@ def _get_rag_response(top_response):
     }
 
     return response
+
 
 def get_response(prompt):
     payload = {
@@ -119,8 +122,6 @@ def get_response(prompt):
     return result
 
 
-
-
 def make_scores_df(response_scores):
     scores_df = {
         "question": [],
@@ -142,14 +143,14 @@ def make_scores_df(response_scores):
 
 
 if __name__ == "__main__":
-    query = "How to get hired at gitlab?"
-
-    # test_response = get_query(query)
-    test_response_1 = get_response(query)
+    # query = "How to get hired at gitlab?"
+    #
+    # # test_response = get_query(query)
+    # test_response_1 = get_response(query)
 
     # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
-    with open('./QA_gitlab.json', 'r') as qa_file:
+    with open('./qa_gitlab_v1.json', 'r', encoding='utf-8') as qa_file:
         qa_pairs = json.load(qa_file)
 
     question_list = [qa_pair['question'] for qa_pair in qa_pairs]
@@ -177,6 +178,6 @@ if __name__ == "__main__":
     from tonic_validate import ValidateApi
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
-    validate_api.upload_run(project_id="0e39990f-471b-4fe8-a89a-4f8fd3843e11", run=response_scores)
+    validate_api.upload_run(project_id="469df571-c755-4d7b-b74b-b999f5511f1e", run=response_scores)
 
     print(scores_df)
