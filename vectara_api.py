@@ -54,10 +54,10 @@ def get_response(prompt):
                 "start": 0,
                 "numResults": 5,
                 "contextConfig": {
-                    "charsBefore": 0,
-                    "charsAfter": 0,
-                    "sentencesBefore": 2,
-                    "sentencesAfter": 2,
+                    "charsBefore": 10,
+                    "charsAfter": 10,
+                    "sentencesBefore": 5,
+                    "sentencesAfter": 5,
                     "startTag": "%START_SNIPPET%",
                     "endTag": "%END_SNIPPET%",
                 },
@@ -75,7 +75,7 @@ def get_response(prompt):
                         "debug": False,
                         "chat": {"store": True, "conversationId": ""},
                         "maxSummarizedResults": 3,
-                        "responseLang": "eng",
+                        "responseLang": "en",
                         "summarizerPromptName": "vectara-summary-ext-v1.2.0",
                         "factualConsistencyScore": True,
                     }
@@ -178,3 +178,5 @@ if __name__ == "__main__":
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
     validate_api.upload_run(project_id="0e39990f-471b-4fe8-a89a-4f8fd3843e11", run=response_scores)
+
+    print(scores_df)
