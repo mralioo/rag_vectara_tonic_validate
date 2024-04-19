@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 from tonic_validate import Benchmark
 from tonic_validate import ValidateApi
 from tonic_validate import ValidateScorer
-from tonic_validate.metrics import AnswerSimilarityMetric
+from tonic_validate.metrics import AnswerSimilarityMetric, AnswerConsistencyMetric, AnswerConsistencyBinaryMetric, \
+    AugmentationAccuracyMetric, AugmentationPrecisionMetric, RetrievalPrecisionMetric
 
 # loading variables from .env file
 load_dotenv()
@@ -48,6 +49,7 @@ def get_response(prompt, params):
     sentences_after = params.get("sentences_after", 0)
     lexicalInterpolationConfig = params.get("lexicalInterpolationConfig", {"lambda": 1})
     diversityBias = params.get("diversityBias", 0.0)
+    semantics = params.get("semantics", 0)
 
 
     payload = {
@@ -69,7 +71,7 @@ def get_response(prompt, params):
                     {
                         "customerId": str(CUSTOMER_ID),
                         "corpusId": CORPUS_ID,
-                        "semantics": 0,
+                        "semantics": semantics,
                         "lexicalInterpolationConfig": lexicalInterpolationConfig,
                         "dim": [],
                     }
@@ -162,10 +164,11 @@ if __name__ == "__main__":
     # RAG parameters
     params = {
         "num_results": 10,
-        "sentences_before": 5,
-        "sentences_after": 5,
-        "lexicalInterpolationConfig": {"lambda": 2},
-        "diversityBias": 0.5
+        "sentences_before": 3,
+        "sentences_after": 3,
+        "semantics": 0,  # 0: "none", 1: "semantic", 2: "syntactic", 3: "both"
+        "lexicalInterpolationConfig": {"lambda": 1}, #
+        "diversityBias": 0.8
     }
 
     # test
@@ -192,7 +195,7 @@ if __name__ == "__main__":
     metrics = [
         AnswerSimilarityMetric(),
         # This metric is used to compare the similarity between the reference answer and the model answer
-        # AnswerConsistencyMetric(), # This metric is used to compare the consistency between the model answers
+        AnswerConsistencyMetric(), # This metric is used to compare the consistency between the model answers
         # AnswerConsistencyBinaryMetric(), # This metric is used to compare the consistency between the model answers
         # AugmentationAccuracyMetric(), # This metric is used to compare the accuracy of the model answers
         # AugmentationPrecisionMetric(), # This metric is used to compare the precision of the model answers
