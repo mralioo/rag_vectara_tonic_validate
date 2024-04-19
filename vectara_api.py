@@ -146,7 +146,7 @@ def make_scores_df(response_scores):
 if __name__ == "__main__":
 
     # specify the version of the tested qa file
-    version = "v2"
+    version = "v3"
     qa_file = f"validation_qa_files/qa_gitlab_{version}.json"
 
     # RAG parameters
@@ -200,8 +200,16 @@ if __name__ == "__main__":
 
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
+
+    # include the model and version in the metadata and params
+
+    run_metadata = {
+        "model": "gpt-3.5-turbo",
+        "version": version,
+    } | params
+
     validate_api.upload_run(project_id="469df571-c755-4d7b-b74b-b999f5511f1e",
                             run=response_scores,
-                            run_metadata={"model": "gpt-3.5-turbo", "version": version})
+                            run_metadata=run_metadata)
 
     print(scores_df)
