@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from tonic_validate import Benchmark
 from tonic_validate import ValidateScorer
 from tonic_validate.metrics import AnswerSimilarityMetric
+from tonic_validate import ValidateApi
 
 # loading variables from .env file
 load_dotenv()
@@ -51,19 +52,27 @@ def _get_rag_response(top_response):
     return response
 
 
-def get_response(prompt):
+def get_response(prompt, params):
+    # Default parameters
+    if params is None:
+        params = {}
+
+    num_results = params.get("num_results", 1)
+    sentences_before = params.get("sentences_before", 0)
+    sentences_after = params.get("sentences_after", 0)
+
     payload = {
         "query": [
             {
                 "query": prompt,
                 "queryContext": "",
                 "start": 0,
-                "numResults": 5,
+                "numResults": num_results,
                 "contextConfig": {
-                    "charsBefore": 10,
-                    "charsAfter": 10,
-                    "sentencesBefore": 5,
-                    "sentencesAfter": 5,
+                    "charsBefore": 0,
+                    "charsAfter": 0,
+                    "sentencesBefore": sentences_before,
+                    "sentencesAfter": sentences_after,
                     "startTag": "%START_SNIPPET%",
                     "endTag": "%END_SNIPPET%",
                 },
@@ -106,17 +115,6 @@ def get_response(prompt):
                       response.text)
         return response
 
-    # responses = response.json()['responseSet'][0]['response']
-    # resutls = []
-    # for res in responses:
-    #     resutls.append(_get_rag_response(res))
-
-    # refactoring the code to handle the response
-    # Extract the first response from the responseSet
-    # TODO: Handle multiple responses
-    # first_response = response.json()['responseSet'][0]['response'][0]
-    # result = _get_rag_response(first_response)
-
     # take the highest score response, the score is in the range of 0-1 and the higher indicate a grater propability
     # of being factual, while lower score indicate a greater probability of hallucination
     best_response = response.json()['responseSet'][0]['response'][0]
@@ -146,14 +144,17 @@ def make_scores_df(response_scores):
 
 
 if __name__ == "__main__":
-    # query = "How to get hired at gitlab?"
-    #
-    # # test_response = get_query(query)
-    # test_response_1 = get_response(query)
 
     # specify the version of the tested qa file
     version = "v2"
     qa_file = f"validation_qa_files/qa_gitlab_{version}.json"
+
+    # RAG parameters
+    params = {
+        "num_results": 3,
+        "sentences_before": 5,
+        "sentences_after": 5
+    }
 
     # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
@@ -172,7 +173,8 @@ if __name__ == "__main__":
 
     # Run the benchmark against the openai model and get the scores
     metrics = [
-        AnswerSimilarityMetric(), # This metric is used to compare the similarity between the reference answer and the model answer
+        AnswerSimilarityMetric(),
+        # This metric is used to compare the similarity between the reference answer and the model answer
         # AnswerConsistencyMetric(), # This metric is used to compare the consistency between the model answers
         # AnswerConsistencyBinaryMetric(), # This metric is used to compare the consistency between the model answers
         # AugmentationAccuracyMetric(), # This metric is used to compare the accuracy of the model answers
@@ -181,7 +183,11 @@ if __name__ == "__main__":
 
     ]
     scorer = ValidateScorer(metrics=metrics, model_evaluator="gpt-3.5-turbo")
-    response_scores = scorer.score(benchmark, get_response, scoring_parallelism=2, callback_parallelism=2)
+
+    response_scores = scorer.score(benchmark,
+                                   lambda prompt: get_response(prompt, params=params),
+                                   scoring_parallelism=2,
+                                   callback_parallelism=2)
     print(response_scores)
 
     # save dataframe to csv
@@ -191,7 +197,7 @@ if __name__ == "__main__":
     scores_df.to_csv(f"./validation_results/{results_file}", index=False)
 
     # Upload the run to the Tonic Validate API
-    from tonic_validate import ValidateApi
+
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
     validate_api.upload_run(project_id="469df571-c755-4d7b-b74b-b999f5511f1e",
