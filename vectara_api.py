@@ -10,8 +10,7 @@ from dotenv import load_dotenv
 from tonic_validate import Benchmark
 from tonic_validate import ValidateApi
 from tonic_validate import ValidateScorer
-from tonic_validate.metrics import AnswerSimilarityMetric, AnswerConsistencyMetric, AnswerConsistencyBinaryMetric, \
-    AugmentationAccuracyMetric, AugmentationPrecisionMetric, RetrievalPrecisionMetric
+from tonic_validate.metrics import AnswerSimilarityMetric, AnswerConsistencyMetric
 
 # loading variables from .env file
 load_dotenv()
@@ -50,7 +49,6 @@ def get_response(prompt, params):
     lexicalInterpolationConfig = params.get("lexicalInterpolationConfig", {"lambda": 1})
     diversityBias = params.get("diversityBias", 0.0)
     semantics = params.get("semantics", 0)
-
 
     payload = {
         "query": [
@@ -161,20 +159,10 @@ if __name__ == "__main__":
     qa_file = f"validation_qa_files/qa_gitlab_{version}.json"
     save_to_csv = False
 
-    # RAG parameters
-    params = {
-        "num_results": 10,
-        "sentences_before": 3,
-        "sentences_after": 3,
-        "semantics": 0,  # 0: "none", 1: "semantic", 2: "syntactic", 3: "both"
-        "lexicalInterpolationConfig": {"lambda": 1}, #
-        "diversityBias": 0.8
-    }
-
-    # test
-    prompt_test = "how to get hired at Gitlab?"
-
-    response = get_response(prompt_test, params=params)
+    # # test
+    # prompt_test = "how to get hired at Gitlab?"
+    #
+    # response = get_response(prompt_test, params=params)
 
     # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
@@ -195,47 +183,62 @@ if __name__ == "__main__":
     metrics = [
         AnswerSimilarityMetric(),
         # This metric is used to compare the similarity between the reference answer and the model answer
-        AnswerConsistencyMetric(), # This metric is used to compare the consistency between the model answers
+        AnswerConsistencyMetric(),  # This metric is used to compare the consistency between the model answers
         # AnswerConsistencyBinaryMetric(), # This metric is used to compare the consistency between the model answers
         # AugmentationAccuracyMetric(), # This metric is used to compare the accuracy of the model answers
         # AugmentationPrecisionMetric(), # This metric is used to compare the precision of the model answers
         # RetrievalPrecisionMetric(), # This metric is used to compare the precision of the model answers
-
     ]
+
     scorer = ValidateScorer(metrics=metrics,
                             model_evaluator="gpt-3.5-turbo")
 
-    response_scores = scorer.score(benchmark,
-                                   lambda prompt: get_response(prompt, params=params),
-                                   scoring_parallelism=2,
-                                   callback_parallelism=2)
-    print(response_scores)
+    # RAG parameters
+    params = {
+        "num_results": 3,
+        "sentences_before": 3,
+        "sentences_after": 3,
+        "semantics": 0,  # 0: "none", 1: "semantic", 2: "syntactic", 3: "both"
+        "lexicalInterpolationConfig": {"lambda": 1},  #
+        "diversityBias": 0
+    }
 
-    # save dataframe to csv
+    lambda_values = [0.1, 0.3, 0.5, 0.6, 0.7, 0.9, 1]
 
-    if save_to_csv:
-        results_file = f"scores_{version}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
-        scores_df = make_scores_df(response_scores)
-        if not os.path.exists("./tonic_results"):
-            os.makedirs("./tonic_results")
-        scores_df.to_csv(f"./tonic_results/{results_file}", index=False)
+    for lambda_value in lambda_values:
 
-    # Upload the run to the Tonic Validate API
+        params["lexicalInterpolationConfig"]["lambda"] = lambda_value
 
-    validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
+        response_scores = scorer.score(benchmark,
+                                       lambda prompt: get_response(prompt, params=params),
+                                       scoring_parallelism=2,
+                                       callback_parallelism=2)
+        print(response_scores)
 
-    # include the model and version in the metadata and params
+        # save dataframe to csv
 
-    run_metadata = {
-                       "model": "gpt-3.5-turbo",
-                       "version": version,
-                   } | params
+        if save_to_csv:
+            results_file = f"scores_{version}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+            scores_df = make_scores_df(response_scores)
+            if not os.path.exists("./tonic_results"):
+                os.makedirs("./tonic_results")
+            scores_df.to_csv(f"./tonic_results/{results_file}", index=False)
 
-    # add your project id from the tonic validate project here
-    project_id = "469df571-c755-4d7b-b74b-b999f5511f1e"
+        # Upload the run to the Tonic Validate API
 
-    validate_api.upload_run(project_id=project_id,
-                            run=response_scores,
-                            run_metadata=run_metadata)
+        validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
 
-    print(scores_df)
+        # include the model and version in the metadata and params
+
+        run_metadata = {"model": "gpt-3.5-turbo",
+                        "version": version,
+                        } | params
+
+        # add your project id from the tonic validate project here
+        project_id = "0b7c2d5b-5968-4ce4-9375-8962a21f99eb"
+
+        validate_api.upload_run(project_id=project_id,
+                                run=response_scores,
+                                run_metadata=run_metadata)
+
+        print(f"Uploaded run with lambda value {lambda_value}")
