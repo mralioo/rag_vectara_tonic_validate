@@ -21,11 +21,6 @@
   },
 
   {
-    "question": "How is Sourcegraph doing from a financial standpoint?",
-    "answer": "Choosing to join a company is a significant commitment. We want people to have an accurate view of Sourcegraph’s financial and business position before they join. (Every Sourcegraph team member after they join has regular access to this information on our Google Drive, and they can ask the CEO directly if they have any other questions.)"
-  },
-
-  {
     "question": "Can I work from anywhere?",
     "answer": "Yes, Sourcegraph is an all-remote company. Unless indicated explicitly in the job description, we are a remote-first company and do not have a preference regarding your location. You can read more about our all-remote philosophy, as well as our path to all remote and tips for working remotely here.",
     "reference_article": "https://handbook.sourcegraph.com/company-info-and-process/remote/"
@@ -67,21 +62,6 @@
   {
     "question": "In the List of Prior Inventions and Original Works of Authorship exhibit, do I have to list everything I’ve been working on or plan to work on (including side projects, and startups) or just projects related to Sourcegraph’s business?",
     "answer": "If there’s an overlap between your projects and Sourcegraph’s business (for example: code search, batch changes, code intelligence, code insights, etc.), go ahead and list them. Sourcegraph’s legal team can’t advise you what to list. But you can review the definitions outlined in the exhibit and decide if there’s anything you want to list. If you’re still not sure, you can consider consulting a lawyer."
-  },
-
-  {
-    "question": "Does this contract transfer ownership of my prior inventions to Sourcegraph?",
-    "answer": "No, it does not. Invention assignment clauses don’t generally assign or transfer ownership of inventions made before the contractual relationship begins. However, when a teammate has made inventions similar or related to the company’s business before the relationship started and then the teammate builds on these inventions during the relationship, then down the line, it may not be clear which parts of the invention belong to the teammate and which parts belong to the employer. That’s why we ask teammates to list related inventions in the List of Prior Inventions and Original Works of Authorship exhibit. Note that the exhibit applies to all teammates, but most commonly to software engineers who may have built code search tools prior to Sourcegraph."
-  },
-
-  {
-    "question": "None of my past employment or consulting agreements conflict with the Sourcegraph contract. Does that mean I don’t need to list anything in the exhibit relating to Conflicting Agreements?",
-    "answer": "Correct. Review the “No Conflicts” section of your Sourcegraph contract. It requires you to list all agreements (e.g., non-competition agreements, non-solicitation of customers agreements, non-solicitation of employees agreements, confidentiality agreements, inventions agreements, etc.), if any, with a current or former client, employer, or any other person or entity, that may restrict your ability to perform services, recruit, or engage customers or service providers for Sourcegraph or otherwise relate to or restrict your ability to perform your duties to Sourcegraph. If there are no such agreements, no need to list anything in the exhibit."
-  },
-
-  {
-    "question": "During my engagement with Sourcegraph, I would like to keep consulting for Company A (maybe x hours per week). Company A sells Z and does not compete with Sourcegraph. Can I keep consulting for Company A and if so should I list my engagement with Company A in any of the exhibits?",
-    "answer": "Check with your manager or supervisor to make sure that your other engagement will not conflict or interfere with your deliverables to Sourcegraph. During your engagement with Sourcegraph, you may not consult for businesses whose products and services compete with Sourcegraph, other than a pre-approved business listed in an applicable exhibit (such as the List of Excluded Companies under Exhibit D). If Company A is not competitive with Sourcegraph, then no need to list Company A in any of the exhibits. Sourcegraph’s legal team can’t recommend whether or not to list a company. If you’re still not sure, you can consider consulting a lawyer."
   }
 
 ]

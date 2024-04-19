@@ -1,3 +1,4 @@
+import datetime
 import json
 import logging
 import os
@@ -7,6 +8,8 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 from tonic_validate import Benchmark
+from tonic_validate import ValidateScorer
+from tonic_validate.metrics import AnswerSimilarityMetric
 
 # loading variables from .env file
 load_dotenv()
@@ -148,36 +151,51 @@ if __name__ == "__main__":
     # # test_response = get_query(query)
     # test_response_1 = get_response(query)
 
+    # specify the version of the tested qa file
+    version = "v2"
+    qa_file = f"validation_qa_files/qa_gitlab_{version}.json"
+
     # Load the QA pairs from the json file for benchmarking
     qa_pairs = []
-    with open('./qa_gitlab_v1.json', 'r', encoding='utf-8') as qa_file:
+    with open(qa_file, 'r', encoding='utf-8') as qa_file:
         qa_pairs = json.load(qa_file)
 
     question_list = [qa_pair['question'] for qa_pair in qa_pairs]
     answer_list = [qa_pair['answer'] for qa_pair in qa_pairs]
 
+    # References. if not exists, set None
+    reference_articles = [qa_pair.get('reference_article', None) for qa_pair in qa_pairs]
+    reference_answers = [qa_pair.get('reference_answer', None) for qa_pair in qa_pairs]
+
     # Create a benchmark object for Tonic Validate
     benchmark = Benchmark(questions=question_list, answers=answer_list)
 
     # Run the benchmark against the openai model and get the scores
+    metrics = [
+        AnswerSimilarityMetric(), # This metric is used to compare the similarity between the reference answer and the model answer
+        # AnswerConsistencyMetric(), # This metric is used to compare the consistency between the model answers
+        # AnswerConsistencyBinaryMetric(), # This metric is used to compare the consistency between the model answers
+        # AugmentationAccuracyMetric(), # This metric is used to compare the accuracy of the model answers
+        # AugmentationPrecisionMetric(), # This metric is used to compare the precision of the model answers
+        # RetrievalPrecisionMetric(), # This metric is used to compare the precision of the model answers
 
-    from tonic_validate import ValidateScorer
-
-    # # scorer = ValidateScorer([AnswerSimilarityMetric(), AnswerConsistencyMetric()])
-    # scorer = ValidateScorer([AnswerConsistencyMetric()])
-
-    scorer = ValidateScorer(model_evaluator="gpt-3.5-turbo")
+    ]
+    scorer = ValidateScorer(metrics=metrics, model_evaluator="gpt-3.5-turbo")
     response_scores = scorer.score(benchmark, get_response, scoring_parallelism=2, callback_parallelism=2)
     print(response_scores)
 
-    scores_df = make_scores_df(response_scores)
     # save dataframe to csv
-    scores_df.to_csv("scores_df_v1.csv")
+
+    results_file = f"scores_{version}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+    scores_df = make_scores_df(response_scores)
+    scores_df.to_csv(f"./validation_results/{results_file}", index=False)
 
     # Upload the run to the Tonic Validate API
     from tonic_validate import ValidateApi
 
     validate_api = ValidateApi(TONIC_VALIDATE_API_KEY)
-    validate_api.upload_run(project_id="469df571-c755-4d7b-b74b-b999f5511f1e", run=response_scores)
+    validate_api.upload_run(project_id="469df571-c755-4d7b-b74b-b999f5511f1e",
+                            run=response_scores,
+                            run_metadata={"model": "gpt-3.5-turbo", "version": version})
 
     print(scores_df)

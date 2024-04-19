@@ -1,0 +1,251 @@
+question,reference_answer,llm_answer,retrieved_context,answer_similarity,augmentation_precision,answer_consistency
+How can candidates request a reasonable accommodation for their interview process at GitLab?,"Candidates can request a reasonable accommodation by reaching out to ces@gitlab.com. The Candidate Experience team along with Talent Acquisition leadership will collaborate with the candidate to define and accommodate their needs, which may include translation services, the use of additional services or assistive technologies, and assistance in setting up Closed Captioning for interviews.","Gitlab Interview Process FAQs %START_SNIPPET%Interview Process FAQs
+How to request for a reasonable accommodation
+At GitLab we pride ourselves on ensuring that everyone can contribute.%END_SNIPPET% To make certain
+that everyone’s interview experience is a positive one, we encourage those who require a
+reasonable accommodation to successfully carry out the interview process, to reach out
+to ces@gitlab.com. The Candidate Experience team along with Talent Acquisition
+leadership will work with you to deﬁne and accommodate those needs. This could
+include but is not limited to the following: ●  Translation Services
+●  Use of additional services or assistive technologies
+●  Assistance in setting up Closed Captioning for interviews I've started the interview process at GitLab, but haven't heard back from anyone recently.",[],3.0,0.0,0.0
+"I've started the interview process at GitLab, but haven't heard back from anyone recently. What should I do?",Feel free to send an email to your Recruiter to get a status update on where you are in the interview process.,"Interview Process FAQs
+How to request for a reasonable accommodation
+At GitLab we pride ourselves on ensuring that everyone can contribute. To make certain
+that everyone’s interview experience is a positive one, we encourage those who require a
+reasonable accommodation to successfully carry out the interview process, to reach out
+to ces@gitlab.com. The Candidate Experience team along with Talent Acquisition
+leadership will work with you to deﬁne and accommodate those needs. This could
+include but is not limited to the following: ●  Translation Services
+●  Use of additional services or assistive technologies
+●  Assistance in setting up Closed Captioning for interviews %START_SNIPPET%I've started the interview process at GitLab, but haven't heard back from anyone recently.%END_SNIPPET% What
+do I do?
+Feel free to send an email to your Recruiter to get a status update on where you are in
+the interview process. Can I have the hiring team’s email addresses so I can send them a note? If you’d like to send a note to the hiring team, please send it to your Recruiter and they
+will forward it on. Can I interview for multiple roles at the same time? In the event that you are interested in more than one opening, there is no limit on the
+number of roles you can apply for but keep in mind the following:",[],2.0,0.0,0.0
+Can I have the hiring team's email addresses so I can send them a note?,"If you'd like to send a note to the hiring team, please send it to your Recruiter and they will forward it on.","The Candidate Experience team along with Talent Acquisition
+leadership will work with you to deﬁne and accommodate those needs. This could
+include but is not limited to the following: ●  Translation Services
+●  Use of additional services or assistive technologies
+●  Assistance in setting up Closed Captioning for interviews I've started the interview process at GitLab, but haven't heard back from anyone recently. What
+do I do?
+Feel free to send an email to your Recruiter to get a status update on where you are in
+the interview process. %START_SNIPPET%Can I have the hiring team’s email addresses so I can send them a note?%END_SNIPPET% If you’d like to send a note to the hiring team, please send it to your Recruiter and they
+will forward it on. Can I interview for multiple roles at the same time? In the event that you are interested in more than one opening, there is no limit on the
+number of roles you can apply for but keep in mind the following: You will have to complete a full interview process for each role you apply to, so
+       be mindful of the time commitment for each application you submit. Due to capacity, the recruiting team will only process 3 of your applications at a
+       time based on which ones you decide to prioritize.",[],2.0,0.0,0.0
+Can I interview for multiple roles at the same time?,"Yes, you can apply for multiple roles at the same time. However, keep in mind that you will need to complete a full interview process for each role you apply to. Additionally, the recruiting team will only process 3 of your applications at a time based on which ones you decide to prioritize.","●  Translation Services
+●  Use of additional services or assistive technologies
+●  Assistance in setting up Closed Captioning for interviews I've started the interview process at GitLab, but haven't heard back from anyone recently. What
+do I do?
+Feel free to send an email to your Recruiter to get a status update on where you are in
+the interview process. Can I have the hiring team’s email addresses so I can send them a note? If you’d like to send a note to the hiring team, please send it to your Recruiter and they
+will forward it on. %START_SNIPPET%Can I interview for multiple roles at the same time?%END_SNIPPET% In the event that you are interested in more than one opening, there is no limit on the
+number of roles you can apply for but keep in mind the following: You will have to complete a full interview process for each role you apply to, so
+       be mindful of the time commitment for each application you submit. Due to capacity, the recruiting team will only process 3 of your applications at a
+       time based on which ones you decide to prioritize. Any other applications outside
+       of the 3 will be processed after the prioritized roles’s interviews are completed. In the effort to be as transparent as possible and avoid sending multiple
+       competing GitLab offers, there will be an added step to the process after your
+       ﬁnal interview where you will discuss with your recruiter which role you’re
+       interested in before any oﬃcial offer documents can be sent.",[],2.0,0.0,0.0
+How is Sourcegraph doing from a financial standpoint?,"Choosing to join a company is a significant commitment. We want people to have an accurate view of Sourcegraph’s financial and business position before they join. (Every Sourcegraph team member after they join has regular access to this information on our Google Drive, and they can ask the CEO directly if they have any other questions.)","Go back to the spreadsheet and mark that you spoke to a user in the Status column. If you create any epics/issues to address feedback gathered in the calls, add the label CSAT
+             improvement and link them to the corresponding CSAT responder outreach issue from that
+quarter. Note: It’s important to tag your CSAT related issues to help tracking/reporting such as
+the improvement slides in Product Key Reviews. Cost profile and user experience Cost profile and user experience
+
+Every Product Manager is responsible for the user experience and cost profile of their product area
+regardless of how the application is hosted (self-managed or gitlab.com). %START_SNIPPET%If a feature is unsustainable
+from a cost standpoint, that can erode the margins of our SaaS business while driving up the total cost
+of ownership for self-managed customers.%END_SNIPPET% If a feature is slow, it can impact the satisfaction of our
+users and potentially others on the platform. There are a few questions a Product Manager should ask when thinking about their features:
+
+•What are the costs associated with my product area? What is the impact on the margin for
+each tier of GitLab.com? •Consider network, compute, and storage costs
+•Are there tools in place to help GitLab, Inc and self-managed admins optimize the cost
+footprint for running GitLab (e.g. node rebalancing, transitioning objects to less costly storage
+classes, garbage collection capabilities)
+
+•Are there features and default settings that help users stay within their CI and Storage limits? •Are there configurable application limits in place for admins to enhance the availability and
+performance of GitLab and reduce abuse vectors?",['Cost profile and user experience'],1.0,0.0,0.0
+Can I work from anywhere?,"Yes, Sourcegraph is an all-remote company. Unless indicated explicitly in the job description, we are a remote-first company and do not have a preference regarding your location. You can read more about our all-remote philosophy, as well as our path to all remote and tips for working remotely here.","Diversity, Inclusion & Belonging: A focus on gender parity, Team Member Resource
+Groups, other initiatives
+7. Collaboration: Kindness, saying thanks, intentionally organize informal communication, no
+ego
+
+8. Total Rewards: Competitive market rates for compensation, Equity compensation, global
+benefits (inclusive of office equipment)
+
+9. Work/Life Harmony: Flexible workday, Family and Friends days
+10. Remote Done Right: One of the world's largest all-remote companies, prolific inventor of
+remote best practices
+
+See our culture page for more! %START_SNIPPET%Work remotely from anywhere in the world.%END_SNIPPET% Curious to see what that looks like? Check out our remote
+manifesto and guides. Being a Product Manager at GitLab Being a Product Manager at GitLab
+
+Want to know more on what being a Product Manager at GitLab is like? Checkout our Product Manager
+Role guide for helpful information like our Career Development Framework and learning/development
+resources.",['About GitLab'],2.0,0.0,0.0
+When can I expect to hear feedback?,"We aim to respond to all applications within 5 business days of your application date. If you are a candidate in our interview process, you can expect to hear from us within 3 business days. If you would like a status update on your candidacy, please contact your recruiter or email recruiting@sourcegraph.com.","Team Interviews
+6.  Discussion with your recruiter on which role you’re interested in
+7. References
+8.  Offer sent for role discussed in step 6 & Background Screen For internal candidates only (in addition to the above guidelines) If you are interviewing for two roles within the same job family and job grade, the
+       offers will be the same. If you are interviewing for two roles in different job families the offers may be
+different. %START_SNIPPET%I've been rejected, when can I reapply?%END_SNIPPET% If your application is rejected because you are insuﬃciently qualiﬁed for the role, you are
+welcome to reapply to the same position once 6 months have passed. If you gain the
+skills, experience, or knowledge we outlined in our feedback to you, you are welcome to
+reapply at any time. I already passed the technical interview, will I need to repeat that stage if I reapply? If you are reapplying to a role in R&D and have already completed interviews following a
+technical interview, your technical feedback also remains valid for up to 6 months as
+long as you are applying to the same job family. The recruitment team will aim to run a
+reduced interview process in this scenario, however, if you are reapplying outside of the
+6 month window or applying to a different job family, you will be required to restart the
+interview process with us again.",[],1.0,0.0,0.0
+Why does Sourcegraph record interviews?,"We use BrightHire, an interview recording tool, to record all interviews. We do this because we believe that candidates should be assessed based on merit, not our memory (did you know that one hour after an interview, memory recall of the conversation declines to 44%?). BrightHire allows us to revisit key details, revise initial impressions, and replace implicit bias with explicit evidence. It brings structure and consistency to each interview and ensures that every candidate gets the opportunity they deserve. Have questions? To read our FAQ, click here.","Compensation Fundamentals Training
+
+Please take time to complete the Total Rewards Compensation Fundamentals Training in Level Up. This training includes details such as:
+
+             •Purpose of Total Rewards
+
+             •Components of Total Rewards (Cash, Equity, Benefits) resulting in a Total Package
+
+             •Cash comp versus Equity
+
+             •Market Pay Practices
+
+             •Pay Ranges and how they operate
+
+             •Pay for Performance vs Market Rates
+
+             •Cost of Labor Market vs Cost of Living
+
+             •Compensation in an emerging remote environment The Why Questions The Why Questions
+             •Why do we have the compensation framework we have now? •Why does GitLab aim to pay a competitive rate? %START_SNIPPET%•Why does GitLab pay local rates?%END_SNIPPET% •Why does GitLab have a Compensation Calculator? The What Questions The What Questions
+
+             •What is the foundation of GitLab’s compensation framework? •What is the formula of the Compensation Calculator or otherwise known as the Calculator
+“Inputs” or “Factors”? •What does the SF Benchmark mean on the Compensation Calculator?",['The Why Questions'],2.0,0.0,0.0
+What should I wear to an interview?,We are a casual company and we encourage you to dress comfortably!,"Use your 1:1s to check in with team members and make sure they are taking enough PTO. Planning and decision making for future projects Planning and decision making for future projects
+
+1. Pull a report of PTO planned for the upcoming quarter
+
+2. Use planned PTO to make decisions including
+
+             •What does my team have capacity to achieve this quarter? %START_SNIPPET%•What weeks should I avoid scheduling key communication or planning?%END_SNIPPET% •What weeks are best to have synchronous team calls? •What weeks do I plan to take off, and how do those overlap with my team? If your team does not have any planned PTO when you run the report, consider sending a
+message or encouraging them in your next 1:1 to plan ahead to take PTO. Getting ahead of
+burnout is important and can be partially addressed with adequate rest. Confirm that you’re getting calendar invitations for your direct reports PTO.",['Planning and decision making for future projects'],2.0,0.0,0.0
+Does Sourcegraph check references?,"Yes. We will send you a reference request form via Greenhouse, and we will never check your references without your explicit consent. You can read more about our reference check process here.","If we
+              find a match, we will schedule an interview and send you a link to a Guide and invite in your
+              time zone to download to your computer. If we do not, we will reach back out and work with
+             you to find an alternative. Sometimes there is a very small overlap between time zones, so we
+             appreciate your patience as we identify alternatives! If you need to reschedule, follow the special instructions in your confirmation email if the
+                interview is within 24 hours. You can also email ces@gitlab.com anytime. %START_SNIPPET%References%END_SNIPPET% References How references are conducted How references are conducted
+
+References will be collected towards the end of the interview stage and they must be checked before
+or as an offer is made. The Hiring Manager or hiring team will contact your references. These reference
+checks will be performed in accordance with the applicable law of the jurisdiction.",[],1.0,0.0,0.0
+Do you provide Visa sponsorship?,"You can learn more about our Visa policy here. If you have any questions, please email recruiting@sourcegraph.com.","Newsletter requests should be submitted no less than 5 business days before the intended send date
+to ensure there is enough time for Content and Marketing Programs Manager’s (MPM) review and set
+up workflow. Community Newsletter
+
+The community newsletter is managed by the Developer Relations team, dedicated to sharing relevant
+developer content, highlighting contribution opportunities, and updating community members on
+upcoming events. We aim to keep our contributors involved and connected with the wider community. This newsletter will not be used to drive or generate leads. To submit to the newsletter, please follow the handbook instructions. %START_SNIPPET%Sponsorship%END_SNIPPET% Sponsorship
+
+We are happy to sponsor events and meet-ups where a marketing benefit exists, subject to approval
+by Field Marketing Managers. These sponsorships may be in cash or in kind, depending on individual
+circumstances. Organizational or project sponsorships may also be considered where a marketing benefit exists. Typically, these sponsorships will be in kind - e.g., developer time commitments, or subsidized / free
+GitLab licenses. Cash sponsorship of projects or organizations may be considered only in exceptional cases - for
+example, if a project or organization that GitLab depends on is struggling to survive financially.",[],2.0,0.0,0.0
+"If I create or work on a personal project or invention outside working hours, will Sourcegraph own those under the contract?","Sourcegraph will not own your personal projects or inventions made outside your working hours unless those projects or inventions are made in connection with, relate to, or result from Sourcegraph’s business or the work you perform for Sourcegraph. Please review the applicable IP Matters section of your agreement.","A great tool for objectively
+recognizing burn out is https://burnoutindex.org. If someone is showing signs of burnout, they should take time off to focus on things that are relaxing
+and improve their overall health and welfare. As a manager, it is your task to evaluate your team’s state of mind. Address possible burnout by
+discussing options with your team member to manage contributing stressors and evaluate the
+workload. Some things to help with this:
+
+•Try to follow each of your team members’ work habits. %START_SNIPPET%If they start being less efficient, or
+working more hours, they might be on the road to burnout.%END_SNIPPET% •Try to keep track of when they had their last paid day off. If they hadn’t had a personal day in
+a long time, look closer at their behavior. •Make sure you let your team members know they can talk to you about their challenges. •When you recognize symptoms of burnout in others, help them to get out the “Burnout trap”. Don’t just tell people to take a break, but help them arrange things so they can take a break.",['Recognizing Burnout'],1.0,0.0,0.0
+"In the List of Prior Inventions and Original Works of Authorship exhibit, do I have to list everything I’ve been working on or plan to work on (including side projects, and startups) or just projects related to Sourcegraph’s business?","If there’s an overlap between your projects and Sourcegraph’s business (for example: code search, batch changes, code intelligence, code insights, etc.), go ahead and list them. Sourcegraph’s legal team can’t advise you what to list. But you can review the definitions outlined in the exhibit and decide if there’s anything you want to list. If you’re still not sure, you can consider consulting a lawyer.","We also have a structured path for handing
+progress of the SAOs             off opportunities from the SDR/BDR teams to the AE team that you can
+provided to my team. use to measure adherance to qualification criteria and next steps. Our Slack Channels Our Slack Channels
+
+Channel                                                        Slack Handle
+Main Channel - (Global VP - JB Larramendy)                                   #sales_dev_global
+Announcements - (SDR Ops/Enablement - Chris Wang)                    #sales_dev_fyi
+All - AMER (Manager - Brian Tabbert)                                              #amer_sales_dev
+SDR AMER (Manager - Josh Downey)                                               #sdr_amer_inbound
+BDR COMM AMER MM (Manager - Christie Park)                        #bdr_amer_comm
+Channel                                                        Slack Handle
+BDR ENTG AMER WEST & LATAM (Manager - Charlotte Platt)  #bdr_entg_amer_west_latam
+BDR ENTG AMER EAST (Manager - Shamit Paul)                          #bdr_entg_amer_east
+BDR PUBSEC (Manager - Josh Downey)                                           #bdr_amer_pubsec
+All - EMEA (Manager - Elsje Smart)                                                  #sdr_emea
+SDR EMEA - (Manager - Elsje Smart)                                               #sdr_emea_apac_inbound
+BDR COMM EMEA MM - (Manager - Elsje Smart)                         #bdr_comm_emea_mm
+BDR ENTG EMEA DACH - (Manager - Christopher Allenfort)       #bdr_entg_emea_dach
+BDR ENTG EMEA NEUR META - (Manager - Miguel Nunes)        #bdr_entg_emea_neur_meta
+BDR ENTG EMEA SEUR - (Manager - Tati Fernandez)                   #bdr_entg_emea_seur
+SDR APJ - (Manager - Robin Falkowski)                                           #sdr_emea_apac_inbound
+BDR ENTG APJ - (Manager - Robin Falkowski)                               #apj_sales_dev
+BDR EGC META NL - (Manager - Carolina Marco Bellver)             #bdr_emea-egc-meta-nl Our GitLab Projects %START_SNIPPET%Our GitLab Projects
+
+Name                                                                Description
+Sales Development
+                                              The list of all issues we curently have on our project.%END_SNIPPET% Issues
+Sales Dev Ops Issue      The main Kanban board we use to manage our operational projects, look here
+Board                           to see what we have in the pipeline. Sequence Creation        The board we manage all new, and in-flight, sequences and messaging
+Board                           campaigns. FM Collaboration         The board we use to communicate with the Field Marketing team to help
+Board                           support their events. PTO Requests Board     The board we use to submit and manage Paid Time Off (PTO) requests. Sales Systems Issues     This is the Sales Systems issue list, we collaborate closely with them.",['Our GitLab Projects'],2.0,0.0,0.0
+Does this contract transfer ownership of my prior inventions to Sourcegraph?,"No, it does not. Invention assignment clauses don’t generally assign or transfer ownership of inventions made before the contractual relationship begins. However, when a teammate has made inventions similar or related to the company’s business before the relationship started and then the teammate builds on these inventions during the relationship, then down the line, it may not be clear which parts of the invention belong to the teammate and which parts belong to the employer. That’s why we ask teammates to list related inventions in the List of Prior Inventions and Original Works of Authorship exhibit. Note that the exhibit applies to all teammates, but most commonly to software engineers who may have built code search tools prior to Sourcegraph.","Remind team members to
+                           take off local holidays even if the rest of the team is working and labeling the
+                                  time away as Public Holiday in Time Off by Deel. Use your 1:1s to check in with team members and make sure they are taking enough PTO. Planning and decision making for future projects Planning and decision making for future projects
+
+1. Pull a report of PTO planned for the upcoming quarter
+
+2. %START_SNIPPET%Use planned PTO to make decisions including
+
+             •What does my team have capacity to achieve this quarter?%END_SNIPPET% •What weeks should I avoid scheduling key communication or planning? •What weeks are best to have synchronous team calls? •What weeks do I plan to take off, and how do those overlap with my team? If your team does not have any planned PTO when you run the report, consider sending a
+message or encouraging them in your next 1:1 to plan ahead to take PTO. Getting ahead of
+burnout is important and can be partially addressed with adequate rest.",['Planning and decision making for future projects'],2.0,0.0,0.0
+None of my past employment or consulting agreements conflict with the Sourcegraph contract. Does that mean I don’t need to list anything in the exhibit relating to Conflicting Agreements?,"Correct. Review the “No Conflicts” section of your Sourcegraph contract. It requires you to list all agreements (e.g., non-competition agreements, non-solicitation of customers agreements, non-solicitation of employees agreements, confidentiality agreements, inventions agreements, etc.), if any, with a current or former client, employer, or any other person or entity, that may restrict your ability to perform services, recruit, or engage customers or service providers for Sourcegraph or otherwise relate to or restrict your ability to perform your duties to Sourcegraph. If there are no such agreements, no need to list anything in the exhibit.","GitLab Policies GitLab Policies
+•Anti-Corruption Policy
+•Anti-Fraud Policy
+•Anti-Harassment Policy
+•Anti-Retaliation Policy
+•Code of Business Conduct and Ethics
+•Corporate Communication Policy
+•Employee Privacy Policy
+•GitLab Terms of Service
+•Insider Trading Policy*
+•Internal Acceptable Use Policy
+•Modern Slavery Act Transparency Statement
+•Partner Code of Ethics
+•Philanthropy Policy
+•Privacy Policy
+•Records Retention Policy
+•Related Party Transactions Policy
+•Social Media Policy
+•Whistleblower Policy*
+•Public Sector Code of Ethics
+
+*Only available to GitLab Team Members. Authorization Matrix Authorization Matrix
+
+The Authorization Matrix designates who is authorized to sign legal documents. Only GitLab Team
+Members with signature authority can execute agreements on behalf of GitLab. %START_SNIPPET%Non-Disclosure Agreements%END_SNIPPET% Non-Disclosure Agreements
+
+Follow the Non-Disclosure Agreement Process to learn how to send an NDA in DocuSign or request an
+NDA if you do not have DocuSign access. Note that this process is only for standard GitLab NDAs. In the event a non-standard NDA is needed,
+follow the steps here. General Legal FAQs General Legal FAQs",[],2.0,0.0,0.0
+"During my engagement with Sourcegraph, I would like to keep consulting for Company A (maybe x hours per week). Company A sells Z and does not compete with Sourcegraph. Can I keep consulting for Company A and if so should I list my engagement with Company A in any of the exhibits?","Check with your manager or supervisor to make sure that your other engagement will not conflict or interfere with your deliverables to Sourcegraph. During your engagement with Sourcegraph, you may not consult for businesses whose products and services compete with Sourcegraph, other than a pre-approved business listed in an applicable exhibit (such as the List of Excluded Companies under Exhibit D). If Company A is not competitive with Sourcegraph, then no need to list Company A in any of the exhibits. Sourcegraph’s legal team can’t recommend whether or not to list a company. If you’re still not sure, you can consider consulting a lawyer.","Importance of choosing to stay a startup Importance of choosing to stay a startup
+
+A senior candidate once referenced the “Letter From Our CEO” in GitLab’s S-1 (filed with the Securities
+and Exchange Commission on September 17, 2021). In it GitLab’s CEO, Sid Sijbrandij, documented
+some of the ways that GitLab plans to avoid the stagnation experienced by most early stage
+companies as they mature. The person said, “your letter is good at reminding everyone that you are
+still a startup and need to retain that mindset. It’s super hard, as you know. %START_SNIPPET%When I reflect upon all the
+amazing things I experienced at [Company X], it is a poorly managed company.%END_SNIPPET% The systems (legal,
+procurement, security) that grow with success are also designed to manage the downside. I see the
+same thing here at [Company Y]. I’m fighting to re-create the challenger mindset to reflect our market
+position outside of virtualization and networking. Cruft everywhere. You have an opportunity to
+minimize this as you scale.” We try to avoid the downside of maturation, because this better enables us to achieve results
+and mitigate many of our concerns.",['Importance of choosing to stay a startup'],2.0,0.0,0.2
