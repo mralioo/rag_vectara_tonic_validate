@@ -1,4 +1,4 @@
-# HireChat
+# HireChat (Tonic-ai integration)
 
 ## Overview
 
