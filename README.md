@@ -30,7 +30,7 @@ HireChat is a cutting-edge chatbot platform built with Vectara. Our goal is to p
 
 ### Usage
 
-1. Run `python main.py` to start monitoring the performance of your RAG system.
+1. Run `python vectara_api.py` to start monitoring the performance of your RAG system.
 2. Access Tonic Validate dashboard to visualize performance metrics and make adjustments as needed.
 
 ## Acknowledgements
